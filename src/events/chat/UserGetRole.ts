@@ -3,7 +3,6 @@ import { Filter } from "@/lib/filter";
 import { IMessageListenerHandler } from "@/lib/interfaces/IMessageListenerHandler";
 import MessageData from "@/lib/decorators/Message";
 import { Message } from "discord.js";
-import { quydinh } from "@/constants";
 import prisma from "../../../../prisma/client";
 import _ from "lodash";
 
