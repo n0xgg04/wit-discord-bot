@@ -1,6 +1,6 @@
-import { DiscordClient } from "@/lib/client";
+import { DiscordClient } from "../client";
 
-function useDiscordClient() {
+function useDiscordClient(): DiscordClient {
     return DiscordClient.getInstance();
 }
 
