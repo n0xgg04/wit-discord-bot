@@ -1,9 +1,9 @@
-import prisma from "../../../../prisma/client";
 import MessageListener from "@/lib/decorators/MessageListener";
 import { Filter } from "@/lib/filter";
 import { IMessageListenerHandler } from "@/lib/interfaces/IMessageListenerHandler";
 import MessageData from "@/lib/decorators/Message";
 import { Message } from "discord.js";
+import prisma from "@database/client";
 
 @MessageListener([Filter.includes("*checkedin")])
 class GetCheckInList implements IMessageListenerHandler {
@@ -20,10 +20,18 @@ class GetCheckInList implements IMessageListenerHandler {
                     content: `Meeting không tồn tại...`,
                 });
             } else {
-                const users = meeting.joined.split(" ");
+                const users = await prisma.userJoinMeet.findMany({
+                    where: {
+                        meetId: meeting.id,
+                    },
+                    select: {
+                        discordMemberId: true,
+                    },
+                });
+
                 let userTag = "";
                 for (let i = 1; i < users.length; i++) {
-                    userTag += ` <@${users[i]}>`;
+                    userTag += ` <@${users[i].discordMemberId}>`;
                 }
                 await message.reply({
                     content: `Danh sách điểm danh (${users.length - 1}): ${userTag}`,

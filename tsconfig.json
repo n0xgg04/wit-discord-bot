@@ -18,7 +18,9 @@
     "outDir": "./dist",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@database/*": ["../../prisma/*"],
+      "@redis/*": ["../../redis/*"]
     }
   },
   "include": ["./**/*.ts"],

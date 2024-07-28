@@ -7,14 +7,21 @@ import Rule from "@/events/chat/Rules";
 import GetId from "@/events/chat/GetId";
 import GetCheckInList from "@/events/chat/GetCheckInList";
 import UserGetRole from "@/events/chat/UserGetRole";
-import AddMember from "@/events/chat/AddMember";
 import EndMeeting from "@/events/chat/EndMeeting";
+import AllowCheckIn from "@/events/chat/AllowCheckIn";
+import CloseCheckIn from "@/events/chat/CloseCheckIn";
+import Demo from "@/events/chat/Demo";
+import MyPoint from "@/events/chat/MyPoint";
+import Leaderboard from "@/events/chat/Leaderboard";
+import Ask from "@/events/chat/Ask";
 
 @EventModule({
     Event: "MessageCreate",
     Handler: [
+        Demo,
+        Ask,
         CheckIn,
-        AddMember,
+        MyPoint,
         EndMeeting,
         KickMember,
         Meeting,
@@ -23,6 +30,9 @@ import EndMeeting from "@/events/chat/EndMeeting";
         GetId,
         GetCheckInList,
         UserGetRole,
+        AllowCheckIn,
+        CloseCheckIn,
+        Leaderboard,
     ],
 })
 class MessageCreate {}

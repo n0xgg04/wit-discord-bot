@@ -20,12 +20,16 @@ export default function run(bot: new (...args: any[]) => ABotRunner & IBot) {
             GatewayIntentBits.GuildModeration,
         ],
     });
-    const rest = new REST({ version: "10" }).setToken(env.DISCORD_TOKEN);
     const Bot = new bot();
+    Bot.onMount();
+
+    const rest = new REST({ version: "10" }).setToken(env.DISCORD_TOKEN);
     (async () => {
         try {
-            Bot.onMount();
+            Logger.debug("Started refreshing application (/) commands.");
+
             const { slashCommands, slashConfigs } = await loadSlashCommands();
+
             const res: any = await rest.put(
                 Routes.applicationCommands(env.DISCORD_APP_ID!),
                 {
@@ -35,6 +39,7 @@ export default function run(bot: new (...args: any[]) => ABotRunner & IBot) {
 
             client.slashConfigs = slashConfigs;
 
+            Logger.debug(`Successfully reloaded ${res.length} (/) commands.`);
             client.login(env.DISCORD_TOKEN);
         } catch (error) {
             Logger.error(

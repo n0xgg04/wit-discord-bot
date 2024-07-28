@@ -5,7 +5,7 @@ import MessageData from "@/lib/decorators/Message";
 import { Message, VoiceChannel } from "discord.js";
 import { getChannelIds } from "@/utils/getChannel";
 import _ from "lodash";
-import prisma from "../../../../prisma/client";
+import prisma from "@database/client";
 
 @MessageListener([Filter.startWith("*meeting now")])
 class Meeting implements IMessageListenerHandler {
@@ -32,9 +32,9 @@ class Meeting implements IMessageListenerHandler {
                 try {
                     await prisma.discordMeet.create({
                         data: {
-                            joined: "",
                             isActive: true,
                             channel: room!,
+                            isAllowCheckIn: false,
                         },
                     });
                 } catch (e) {

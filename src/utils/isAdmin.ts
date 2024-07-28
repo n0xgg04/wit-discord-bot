@@ -1,4 +1,4 @@
-import prisma from "../../../prisma/client";
+import prisma from "@database/client";
 
 export async function isAdmin(id: string) {
     return (
